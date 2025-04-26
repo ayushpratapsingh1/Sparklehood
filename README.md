@@ -2,7 +2,7 @@
 
 A comprehensive dashboard for tracking, reporting, and managing AI safety incidents. This application provides a user-friendly interface to log incidents, filter them by severity, and manage the incident database.
 
-![Dashboard Screenshot](./screenshot.png)
+![Dashboard Screenshot](./public/screenshot.png)
 
 ## Features
 
