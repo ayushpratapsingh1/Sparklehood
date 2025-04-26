@@ -42,7 +42,7 @@ The application is containerized with Docker and deployed via GitHub Actions CI/
 
 ### Visit the Github Repository
 
-**[View the GitHub Repo](https://github.com/ayushpratapsingh1/Sparklehood.git)**
+**[View the GitHub Repo](https://github.com/ayushpratapsingh1/Sparklehood)**
 
 ### Port Configuration
 
