@@ -6,6 +6,7 @@ A comprehensive dashboard for tracking, reporting, and managing AI safety incide
 
 ## Features
 
+
 ### Frontend Highlights
 
 - **Responsive Design**: Fully responsive UI that works on all device sizes
@@ -33,7 +34,15 @@ A comprehensive dashboard for tracking, reporting, and managing AI safety incide
 
 ## Deployment
 
-The application is containerized with Docker and deployed via GitHub Actions CI/CD pipeline to an EC2 instance.
+The application is containerized with Docker and deployed via GitHub Actions CI/CD pipeline to AWS EC2 instance.
+
+### Visit the Live Dashboard
+
+**[View the AI Safety Incident Dashboard](https://loginaps.duckdns.org/)** - Hosted on AWS Cloud Infrastructure
+
+### Visit the Github Repository
+
+**[View the GitHub Repo](https://github.com/ayushpratapsingh1/Sparklehood.git)**
 
 ### Port Configuration
 
