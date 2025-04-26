@@ -1,0 +1,7 @@
+services:
+  react-frontend:
+    image: ayuspratapsingh1/dashboard:latest
+    container_name: dashboard
+    restart: always
+    ports:
+      - "4000:80"   # nginx inside container listens on 80, exposed on 4000 on EC2

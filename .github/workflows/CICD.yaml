@@ -23,8 +23,8 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/dashboard-image:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/dashboard-image:latest
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/dashboard:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/dashboard:latest
 
     - name: Upload docker-compose.yml to EC2
       uses: appleboy/scp-action@v0.1.6
