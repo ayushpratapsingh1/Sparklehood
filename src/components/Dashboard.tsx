@@ -428,21 +428,31 @@ export default function Dashboard() {
                 </div>
                 
                 <div className="grid grid-cols-3 gap-2 w-full">
-                  <div className={`${darkMode ? 'bg-emerald-900/50 border-emerald-700' : 'bg-emerald-50 border-emerald-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}>
-                    <span className={`text-xs font-medium ${darkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Low</span>
-                    <span className={`text-lg font-bold ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{lowCount}</span>
-                  </div>
-                  
-                  <div className={`${darkMode ? 'bg-amber-900/50 border-amber-700' : 'bg-amber-50 border-amber-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}>
-                    <span className={`text-xs font-medium ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>Medium</span>
-                    <span className={`text-lg font-bold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{mediumCount}</span>
-                  </div>
-                  
-                  <div className={`${darkMode ? 'bg-rose-900/50 border-rose-700' : 'bg-rose-50 border-rose-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}>
-                    <span className={`text-xs font-medium ${darkMode ? 'text-rose-300' : 'text-rose-700'}`}>High</span>
-                    <span className={`text-lg font-bold ${darkMode ? 'text-rose-400' : 'text-rose-600'}`}>{highCount}</span>
-                  </div>
-                </div>
+            <div
+              className={`${darkMode ? 'bg-emerald-900/50 border-emerald-700' : 'bg-emerald-50 border-emerald-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
+              onClick={() => setFilter("Low")}
+            >
+              <span className={`text-xs font-medium ${darkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Low</span>
+              <span className={`text-lg font-bold ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{lowCount}</span>
+            </div>
+
+            <div
+              className={`${darkMode ? 'bg-amber-900/50 border-amber-700' : 'bg-amber-50 border-amber-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
+              onClick={() => setFilter("Medium")}
+            >
+              <span className={`text-xs font-medium ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>Medium</span>
+              <span className={`text-lg font-bold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{mediumCount}</span>
+            </div>
+
+            <div
+              className={`${darkMode ? 'bg-rose-900/50 border-rose-700' : 'bg-rose-50 border-rose-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
+              onClick={() => setFilter("High")}
+            >
+              <span className={`text-xs font-medium ${darkMode ? 'text-rose-300' : 'text-rose-700'}`}>High</span>
+              <span className={`text-lg font-bold ${darkMode ? 'text-rose-400' : 'text-rose-600'}`}>{highCount}</span>
+            </div>
+          </div>
+
               </div>
             )}
           </div>
