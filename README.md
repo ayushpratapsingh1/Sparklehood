@@ -54,7 +54,7 @@ The application serves content on port 443 (HTTPS) externally while using port 4
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/Sparklehood.git
+   git clone https://github.com/ayushpratapsingh1/Sparklehood.git
    cd Sparklehood
    ```
 
