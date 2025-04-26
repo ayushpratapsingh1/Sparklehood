@@ -392,67 +392,83 @@ export default function Dashboard() {
         {/* Floating Animated Counter Circle */}
         <div 
           ref={floatingCounterRef}
-          className="fixed bottom-8 right-8 z-40 transition-all duration-500 ease-in-out"
+          className="fixed bottom-8 right-8 z-40 transition-all duration-500 ease-in-out will-change-transform"
         >
           <div 
             className={`relative ${darkMode 
               ? 'bg-gray-800 border-purple-500 hover:border-purple-400' 
               : 'bg-white border-indigo-300 hover:border-indigo-400'} rounded-full shadow-xl cursor-pointer
-              transform transition-all duration-300 hover:shadow-2xl
+              transform transition-all duration-300 ease-out hover:shadow-2xl
               border-4 
               ${isCountExpanded ? 'w-64 h-64' : 'w-16 h-16'}
               ${isCountRotating ? 'rotate-180' : 'rotate-0'}
-              ${!isCountExpanded ? 'animate-bounce' : ''}
+              ${!isCountExpanded ? 'animate-pulse-gentle' : ''}
               flex items-center justify-center
+              will-change-transform will-change-size
             `}
             onClick={toggleCountDisplay}
+            style={{
+              transform: `translate3d(0, ${!isCountExpanded ? '0' : '0'}, 0)`,
+              backfaceVisibility: 'hidden'
+            }}
           >
             {/* Compact view when collapsed */}
             {!isCountExpanded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className={`text-2xl font-bold ${darkMode ? 'text-purple-400' : 'text-indigo-600'} ${countAnimation ? 'animate-bounce' : ''}`}>
+                <span className={`text-2xl font-bold ${darkMode ? 'text-purple-400' : 'text-indigo-600'} ${countAnimation ? 'animate-pulse-fast' : ''}`}>
                   {totalCount}
                 </span>
                 
-                {/* Animated pulse rings */}
-                <div className={`absolute inset-0 border-2 rounded-full ${darkMode ? 'border-purple-500' : 'border-indigo-300'} ${countAnimation ? 'animate-ping' : 'opacity-0'}`}></div>
+                {/* Animated pulse rings - optimized */}
+                <div className={`absolute inset-0 border-2 rounded-full ${darkMode ? 'border-purple-500' : 'border-indigo-300'} ${countAnimation ? 'animate-ping-gentle' : 'opacity-0'}`}></div>
               </div>
             )}
             
-            {/* Expanded view */}
+            {/* Expanded view - uses CSS transitions for smoother rendering */}
             {isCountExpanded && (
-              <div className="absolute inset-0 p-4 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 p-4 flex flex-col items-center justify-center opacity-0 animate-fade-in">
                 <div className="text-center mb-2">
                   <span className={`text-lg font-semibold ${darkMode ? 'text-gray-200' : 'text-indigo-900'}`}>Incident Count</span>
                   <div className={`text-3xl font-bold ${darkMode ? 'text-purple-400' : 'text-indigo-600'} mb-3`}>{totalCount}</div>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-2 w-full">
-            <div
-              className={`${darkMode ? 'bg-emerald-900/50 border-emerald-700' : 'bg-emerald-50 border-emerald-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
-              onClick={() => setFilter("Low")}
-            >
-              <span className={`text-xs font-medium ${darkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Low</span>
-              <span className={`text-lg font-bold ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{lowCount}</span>
-            </div>
+                  <div
+                    className={`${darkMode ? 'bg-emerald-900/50 border-emerald-700' : 'bg-emerald-50 border-emerald-100'} 
+                      rounded-full p-2 flex flex-col items-center shadow-sm border transform transition-transform hover:scale-105 active:scale-95`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilter("Low");
+                    }}
+                  >
+                    <span className={`text-xs font-medium ${darkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>Low</span>
+                    <span className={`text-lg font-bold ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{lowCount}</span>
+                  </div>
 
-            <div
-              className={`${darkMode ? 'bg-amber-900/50 border-amber-700' : 'bg-amber-50 border-amber-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
-              onClick={() => setFilter("Medium")}
-            >
-              <span className={`text-xs font-medium ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>Medium</span>
-              <span className={`text-lg font-bold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{mediumCount}</span>
-            </div>
+                  <div
+                    className={`${darkMode ? 'bg-amber-900/50 border-amber-700' : 'bg-amber-50 border-amber-100'} 
+                      rounded-full p-2 flex flex-col items-center shadow-sm border transform transition-transform hover:scale-105 active:scale-95`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilter("Medium");
+                    }}
+                  >
+                    <span className={`text-xs font-medium ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>Medium</span>
+                    <span className={`text-lg font-bold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{mediumCount}</span>
+                  </div>
 
-            <div
-              className={`${darkMode ? 'bg-rose-900/50 border-rose-700' : 'bg-rose-50 border-rose-100'} rounded-full p-2 flex flex-col items-center shadow-sm border`}
-              onClick={() => setFilter("High")}
-            >
-              <span className={`text-xs font-medium ${darkMode ? 'text-rose-300' : 'text-rose-700'}`}>High</span>
-              <span className={`text-lg font-bold ${darkMode ? 'text-rose-400' : 'text-rose-600'}`}>{highCount}</span>
-            </div>
-          </div>
-
+                  <div
+                    className={`${darkMode ? 'bg-rose-900/50 border-rose-700' : 'bg-rose-50 border-rose-100'} 
+                      rounded-full p-2 flex flex-col items-center shadow-sm border transform transition-transform hover:scale-105 active:scale-95`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilter("High");
+                    }}
+                  >
+                    <span className={`text-xs font-medium ${darkMode ? 'text-rose-300' : 'text-rose-700'}`}>High</span>
+                    <span className={`text-lg font-bold ${darkMode ? 'text-rose-400' : 'text-rose-600'}`}>{highCount}</span>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -653,8 +669,9 @@ export default function Dashboard() {
             {/* Right column - Report form */}
             <div className="lg:w-1/3">
               <div className={`${darkMode 
-                ? 'bg-gray-800 border-gray-700' 
-                : 'bg-white border-indigo-100'} rounded-xl shadow-md p-6 sticky top-24 border transition-colors duration-300`}>
+                  ? 'bg-gray-800 border border-gray-700 hover:shadow-lg hover:border-gray-500' 
+                  : 'bg-white border border-indigo-100 hover:shadow-lg hover:border-indigo-300'
+                } rounded-xl shadow-md p-6 sticky top-24 border transition-colors duration-300`}>
                 <h2 className={`text-xl font-bold mb-4 ${darkMode 
                   ? 'text-gray-100 border-b border-gray-700' 
                   : 'text-indigo-900 border-b border-indigo-100'} pb-2`}>Report New Incident</h2>
@@ -756,6 +773,41 @@ export default function Dashboard() {
             
             .animate-fade-in {
               animation: fade-in 0.5s ease-out;
+            }
+            @keyframes pulse-gentle {
+              0%, 100% { transform: scale(1) translate3d(0, 0, 0); }
+              50% { transform: scale(1.05) translate3d(0, -5px, 0); }
+            }
+
+            @keyframes pulse-fast {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.1); }
+            }
+
+            @keyframes ping-gentle {
+              0% { transform: scale(1); opacity: 1; }
+              75%, 100% { transform: scale(1.5); opacity: 0; }
+            }
+
+            @keyframes fade-in {
+              0% { opacity: 0; }
+              100% { opacity: 1; }
+            }
+
+            .animate-pulse-gentle {
+              animation: pulse-gentle 3s ease-in-out infinite;
+            }
+
+            .animate-pulse-fast {
+              animation: pulse-fast 0.5s ease-in-out infinite;
+            }
+
+            .animate-ping-gentle {
+              animation: ping-gentle 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+            }
+
+            .animate-fade-in {
+              animation: fade-in 0.3s ease-out forwards;
             }
           `}
         </style>
