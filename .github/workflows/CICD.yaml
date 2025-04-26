@@ -1,0 +1,49 @@
+name: Deploy Dashboard to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to Docker Hub
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
+    - name: Build and push React frontend image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/dashboard-image:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/dashboard-image:latest
+
+    - name: Upload docker-compose.yml to EC2
+      uses: appleboy/scp-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        source: "docker-compose.yml"
+        target: "/home/${{ secrets.EC2_USER }}/Dashboard/"
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: |
+          cd /home/${{ secrets.EC2_USER }}/Dashboard/
+          docker-compose down --rmi all
+          docker system prune -af
+          docker-compose pull
+          docker-compose up -d --force-recreate
