@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from "react";
+import React, { useState, useEffect, useRef, createContext } from "react";
+// Removed unused useContext import
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -731,21 +732,23 @@ export default function Dashboard() {
         </div>
 
         {/* Add CSS for custom animations */}
-        <style jsx>{`
-          @keyframes popup-appear {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-          }
-          
-          @keyframes fade-in {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-          
-          .animate-fade-in {
-            animation: fade-in 0.5s ease-out;
-          }
-        `}</style>
+        <style>
+          {`
+            @keyframes popup-appear {
+              0% { transform: scale(0.8); opacity: 0; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+            
+            @keyframes fade-in {
+              0% { opacity: 0; transform: translateY(10px); }
+              100% { opacity: 1; transform: translateY(0); }
+            }
+            
+            .animate-fade-in {
+              animation: fade-in 0.5s ease-out;
+            }
+          `}
+        </style>
       </div>
     </ThemeContext.Provider>
   );
